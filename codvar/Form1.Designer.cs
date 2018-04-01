@@ -98,6 +98,7 @@
             this.dvarDataGrid.Name = "dvarDataGrid";
             this.dvarDataGrid.Size = new System.Drawing.Size(763, 493);
             this.dvarDataGrid.TabIndex = 9;
+            this.dvarDataGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvarDataGrid_CellValueChanged);
             // 
             // Column1
             // 

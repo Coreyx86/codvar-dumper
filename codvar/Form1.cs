@@ -62,6 +62,7 @@ namespace codvar
         };
 
         public bool dvarsAreDumped = false;
+        public bool formIsLoaded = false;
         public string selectedGame = "";
 
 
@@ -118,8 +119,8 @@ namespace codvar
             }
             else if(selectedGame == "BlackOps" || selectedGame == "BlackOpsMP")
             {
-                dvarType = (selectedGame == "BlackOps" ? MemoryLib.Extension.ReadByte(dvarLocation + 0xD) : MemoryLib.Extension.ReadByte(dvarLocation + 0x10));
-                dvarValue = (selectedGame == "BlackOps" ? dvarLocation + 0x10 : dvarLocation + 0x18);
+                dvarType = MemoryLib.Extension.ReadByte(dvarLocation + 0x10);
+                dvarValue = dvarLocation + 0x18;
             }
             else if (selectedGame == "iw5sp" || selectedGame == "iw5mp")
             {
@@ -212,6 +213,7 @@ namespace codvar
         public Form1()
         {
             InitializeComponent();
+            formIsLoaded = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -234,6 +236,105 @@ namespace codvar
             catch (Exception ee)
             {
                 MessageBox.Show(ee.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dvarDataGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if(formIsLoaded)
+            {
+                int rPos = dvarDataGrid.CurrentCell.ColumnIndex; //Gets the column
+                int i = dvarDataGrid.CurrentRow.Index; //Gets the row
+
+                if(rPos >= 3)
+                {
+                    // int dvarLocation = (int)dvarDataGrid.Rows[i].Cells[1].Value; //Get the memory location of the dvar from the dataGrid
+                    int dvarLocation = int.Parse(dvarDataGrid.Rows[i].Cells[1].Value.ToString(), System.Globalization.NumberStyles.HexNumber);
+                    byte dvarType = 0x00;
+                    int dvarValue = 0;
+
+
+                    //Since the DVAR structures change from game to game I must adjust the locations where the dvarType is located and where the values are located.
+                    if (selectedGame == "iw3sp" || selectedGame == "iw3mp")
+                    {
+                        dvarType = MemoryLib.Extension.ReadByte(dvarLocation + 0xA);
+                        dvarValue = dvarLocation + 0xC;
+                    }
+                    else if (selectedGame == "CoDWaW" || selectedGame == "CoDWaWmp")
+                    {
+                        dvarType = MemoryLib.Extension.ReadByte(dvarLocation + 0xA);
+                        dvarValue = dvarLocation + 0x10;
+                    }
+                    else if (selectedGame == "iw4sp" || selectedGame == "iw4mp")
+                    {
+                        dvarType = (selectedGame == "iw4sp" ? MemoryLib.Extension.ReadByte(dvarLocation + 0xC) : MemoryLib.Extension.ReadByte(dvarLocation + 0x8));
+                        dvarValue = (selectedGame == "iw4sp" ? dvarLocation + 0x10 : dvarLocation + 0xC);
+                    }
+                    else if (selectedGame == "BlackOps" || selectedGame == "BlackOpsMP")
+                    {
+                        dvarType = MemoryLib.Extension.ReadByte(dvarLocation + 0x10);
+                        dvarValue = dvarLocation + 0x18;
+                    }
+                    else if (selectedGame == "iw5sp" || selectedGame == "iw5mp")
+                    {
+                        dvarType = MemoryLib.Extension.ReadByte(dvarLocation + 0x8);
+                        dvarValue = dvarLocation + 0xC;
+                    }
+
+                    switch (dvarType)
+                    {
+                        case 0:
+                            //dvarTypeStr = "BOOL";
+                            MemoryLib.Extension.WriteByte(dvarValue, Convert.ToByte(dvarDataGrid.Rows[i].Cells[rPos].Value));
+                            break;
+                        case 1:
+                            //dvarTypeStr = "FLOAT";
+                            MemoryLib.Extension.WriteFloat(dvarValue, Convert.ToSingle(dvarDataGrid.Rows[i].Cells[rPos].Value));
+                            break;
+                        case 2:
+                            //dvarTypeStr = "VEC2";
+
+                            MemoryLib.Extension.WriteFloat(dvarValue, Convert.ToSingle(dvarDataGrid.Rows[i].Cells[rPos].Value));
+                            MemoryLib.Extension.WriteFloat(dvarValue + 4, Convert.ToSingle(dvarDataGrid.Rows[i].Cells[rPos + 1].Value));
+                            break;
+                        case 3:
+                            //dvarTypeStr = "VEC3";
+
+                            MemoryLib.Extension.WriteFloat(dvarValue, Convert.ToSingle(dvarDataGrid.Rows[i].Cells[rPos].Value));
+                            MemoryLib.Extension.WriteFloat(dvarValue + 4, Convert.ToSingle(dvarDataGrid.Rows[i].Cells[rPos + 1].Value));
+                            MemoryLib.Extension.WriteFloat(dvarValue + 8, Convert.ToSingle(dvarDataGrid.Rows[i].Cells[rPos + 2].Value));
+                            break;
+                        case 4:
+                            //dvarTypeStr = "VEC4";
+                            MemoryLib.Extension.WriteFloat(dvarValue, Convert.ToSingle(dvarDataGrid.Rows[i].Cells[rPos].Value));
+                            MemoryLib.Extension.WriteFloat(dvarValue + 4, Convert.ToSingle(dvarDataGrid.Rows[i].Cells[rPos + 1].Value));
+                            MemoryLib.Extension.WriteFloat(dvarValue + 8, Convert.ToSingle(dvarDataGrid.Rows[i].Cells[rPos + 2].Value));
+                            MemoryLib.Extension.WriteFloat(dvarValue + 12, Convert.ToSingle(dvarDataGrid.Rows[i].Cells[rPos + 3].Value));
+
+                            break;
+                        case 5:
+                            //dvarTypeStr = "INT";
+                            MemoryLib.Extension.WriteFloat(dvarValue, Convert.ToInt32(dvarDataGrid.Rows[i].Cells[rPos].Value));
+
+                            break;
+                        case 7:
+                           // dvarTypeStr = "STRING";
+                            string tmp = Convert.ToString(dvarDataGrid.Rows[i].Cells[rPos].Value) + "\0";
+                            MemoryLib.Extension.WriteString(MemoryLib.Extension.ReadInt(dvarValue), tmp); //We have to write the string to the pointer address
+                            break;
+                        case 8:
+                            //dvarTypeStr = "COLOR";
+                            MemoryLib.Extension.WriteFloat(dvarValue, Convert.ToSingle(dvarDataGrid.Rows[i].Cells[rPos].Value));
+                            MemoryLib.Extension.WriteFloat(dvarValue + 4, Convert.ToSingle(dvarDataGrid.Rows[i].Cells[rPos + 1].Value));
+                            MemoryLib.Extension.WriteFloat(dvarValue + 8, Convert.ToSingle(dvarDataGrid.Rows[i].Cells[rPos + 2].Value));
+                            MemoryLib.Extension.WriteFloat(dvarValue + 12, Convert.ToSingle(dvarDataGrid.Rows[i].Cells[rPos + 3].Value));
+                            break;
+                        case 9:
+                            //dvarTypeStr = "INT64";
+                            MemoryLib.Extension.WriteInt64(dvarValue, Convert.ToInt64(dvarDataGrid.Rows[i].Cells[rPos].Value));
+                            break;
+                    }
+                }
             }
         }
     }
