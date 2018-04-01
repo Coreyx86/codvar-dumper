@@ -15,7 +15,9 @@ P.S: I'm not sure about the newer call of duty games, but an easy way to find th
 
 TO DO:
 Add multithreading.
+<br/>
 <strike>Add the abililty to edit the DVAR Values in Realtime.</strike>
+<br/>
 Add the ability to save all dvars to a .txt format.
 
 Created by Corey Nelson
