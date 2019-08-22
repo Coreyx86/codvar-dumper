@@ -79,9 +79,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(662, 512);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(114, 13);
+            this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 10;
-            this.label2.Text = "Made by Corey Nelson";
+            this.label2.Text = "Coreyx86";
             // 
             // dvarDataGrid
             // 
@@ -167,6 +167,7 @@
             this.Controls.Add(this.button2);
             this.Name = "Form1";
             this.Text = "Call of Duty DVAR Dumper";
+            this.Load += new System.EventHandler(this.Form1_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dvarDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
