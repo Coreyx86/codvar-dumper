@@ -9,14 +9,16 @@ c:\users\coreypc\documents\visual studio 2017\Projects\codvar\codvar\obj\Debug\c
 c:\users\coreypc\documents\visual studio 2017\Projects\codvar\codvar\obj\Debug\codvar.csproj.GenerateResource.Cache
 c:\users\coreypc\documents\visual studio 2017\Projects\codvar\codvar\obj\Debug\codvar.exe
 c:\users\coreypc\documents\visual studio 2017\Projects\codvar\codvar\obj\Debug\codvar.pdb
+C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\obj\Debug\codvar.Form1.resources
+C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\obj\Debug\codvar.Properties.Resources.resources
+C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\obj\Debug\codvar.csproj.GenerateResource.cache
+C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\obj\Debug\codvar.csproj.CoreCompileInputs.cache
 C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\bin\Debug\codvar.exe.config
-C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\obj\Debug\codvar.exe
-C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\obj\Debug\codvar.pdb
 C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\bin\Debug\codvar.exe
 C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\bin\Debug\codvar.pdb
 C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\bin\Debug\MemoryLib.dll
 C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\bin\Debug\MemoryLib.pdb
-C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\obj\Debug\codvar.csprojResolveAssemblyReference.cache
-C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\obj\Debug\codvar.Form1.resources
-C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\obj\Debug\codvar.Properties.Resources.resources
-C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\obj\Debug\codvar.csproj.GenerateResource.Cache
+C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\obj\Debug\codvar.csprojAssemblyReference.cache
+C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\obj\Debug\codvar.csproj.CopyComplete
+C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\obj\Debug\codvar.exe
+C:\Users\CoreyPC\Documents\GitHub\codvar-dumper\codvar\obj\Debug\codvar.pdb
