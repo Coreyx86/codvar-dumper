@@ -25,7 +25,7 @@ namespace codvar
         //This function only dumps information that is common in each game such as variable name, memory location, and their respected values
         public void Dvarmgr_DvarDumped(object sender, DvarDumpEventArgs e)
         {
-            statusLabel.Text = "Status: " + Manager.obj.dvarmgr.dvars_found + " / " + Manager.obj.g_dvar_info[selectedGame].count;
+            statusLabel.Text = "Status: " + Manager.obj.dvarmgr.dvars_found + " / " + Manager.obj.memory.Extension.ReadInt(Manager.obj.g_dvar_info[selectedGame].count);
             Application.DoEvents();
 
 
@@ -138,7 +138,7 @@ namespace codvar
 
                     Dvar dvar = new Dvar(dvarLocation, Manager.obj.g_dvar_info[selectedGame].typeOffset, Manager.obj.g_dvar_info[selectedGame].valueOffset);
 
-                    switch ((int)dvar.value)
+                    switch ((int)dvar.type)
                     {
                         case 0:
                             //dvarTypeStr = "BOOL";
