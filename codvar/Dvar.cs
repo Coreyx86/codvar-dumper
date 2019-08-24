@@ -267,10 +267,14 @@ namespace codvar
                 ptr = Manager.obj.memory.Extension.ReadInt(info.arrayStart + (i * 0x4));
 
                 Dvar dvar = new Dvar(ptr, info.typeOffset, info.valueOffset);
-                found.Add(dvar.name, dvar);
 
-                dvars_found = found.Count;
-                dvarDumped?.Invoke(this, new DvarDumpEventArgs(dvar));
+                if (!found.ContainsKey(dvar.name))
+                {
+                    found.Add(dvar.name, dvar);
+
+                    dvars_found = found.Count;
+                    dvarDumped?.Invoke(this, new DvarDumpEventArgs(dvar));
+                }
             }
         }
     }
